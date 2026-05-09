@@ -8,3 +8,9 @@ REST API service for archiving messages exchanged between users and an AI assist
 cp .env.example .env
 docker-compose up --build
 ```
+
+## Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `GET` | `/health` | Health check |
