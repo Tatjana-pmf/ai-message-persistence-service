@@ -7,7 +7,7 @@ from app.models import MessageRole
 
 
 class MessageCreate(BaseModel):
-    message_id: UUID | None = None
+    message_id: UUID
     chat_id: UUID
     content: str
     rating: bool | None = None

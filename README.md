@@ -14,6 +14,9 @@ docker-compose up --build
 | Method | Path | Description |
 |--------|------|-------------|
 | `GET` | `/health` | Health check |
+| `POST` | `/messages` | Persist a new message |
+| `PATCH` | `/messages/{message_id}` | Update an existing message |
+| `GET` | `/messages` | Retrieve all messages |
 
 ## Database
 
