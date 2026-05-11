@@ -14,3 +14,7 @@ docker-compose up --build
 | Method | Path | Description |
 |--------|------|-------------|
 | `GET` | `/health` | Health check |
+
+## Database
+
+PostgreSQL with SQLAlchemy ORM. Migrations managed by Alembic and run automatically on startup.
