@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.core.security import verify_token
 from app.database import get_db
 from app.models import Message
 from app.schemas import MessageCreate, MessageResponse, MessageUpdate
@@ -12,12 +13,12 @@ router = APIRouter(prefix="/messages", tags=["messages"])
 
 
 @router.get("", response_model=list[MessageResponse])
-def get_messages(db: Session = Depends(get_db)) -> list[Message]:
+def get_messages(db: Session = Depends(get_db), _: None = Depends(verify_token)) -> list[Message]:
     return list(db.execute(select(Message)).scalars().all())
 
 
 @router.post("", response_model=MessageResponse, status_code=status.HTTP_201_CREATED)
-def create_message(data: MessageCreate, db: Session = Depends(get_db)) -> Message:
+def create_message(data: MessageCreate, db: Session = Depends(get_db), _: None = Depends(verify_token)) -> Message:
     if db.get(Message, data.message_id):
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
@@ -31,7 +32,7 @@ def create_message(data: MessageCreate, db: Session = Depends(get_db)) -> Messag
 
 
 @router.patch("/{message_id}", response_model=MessageResponse)
-def update_message(message_id: UUID, data: MessageUpdate, db: Session = Depends(get_db)) -> Message:
+def update_message(message_id: UUID, data: MessageUpdate, db: Session = Depends(get_db), _: None = Depends(verify_token)) -> Message:
     message = db.get(Message, message_id)
     if not message:
         raise HTTPException(
