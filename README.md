@@ -25,9 +25,14 @@ All `/messages` endpoints require a Bearer token. Get one via:
 
 ```
 POST /token
+Content-Type: application/x-www-form-urlencoded
+
+username=<API_USERNAME>&password=<API_PASSWORD>
 ```
 
-Include it in subsequent requests:
+Credentials are configured via `API_USERNAME` and `API_PASSWORD` environment variables.
+
+Include the token in subsequent requests:
 
 ```
 Authorization: Bearer <token>
